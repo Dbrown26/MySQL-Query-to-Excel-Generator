@@ -2,6 +2,9 @@ import PySimpleGUI as sg
 import mysql.connector
 import pandas as pd
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 sg.theme('SandyBeach')
 
@@ -20,7 +23,7 @@ while True:
     elif event == 'Submit':
         query = values['textbox']
 
-        # db connection
+        #db connection
         try:
             connect = mysql.connector.connect(
             host=os.getenv('DB_HOST'),
@@ -30,9 +33,9 @@ while True:
     )
 
             df = pd.read_sql(query, connect)
-            connect.close()  # Close the connection when done
+            connect.close()  #Close the connection when done
 
-            # Save to Excel
+            #Save to Excel
             excel_file = 'myReport.xlsx'
             df.to_excel(excel_file, index=False)
 
